@@ -1,0 +1,899 @@
+:root {
+  /* TRUST PALETTE VARIABLES */
+  --primary-color: #6366f1;
+  --dark-bg: #0f172a;
+  --light-bg: #f8fafc;
+  --text-primary-blue: #0d6efd;
+
+  --bg-deep-navy: #0f172a;
+  --primary-blue: #0f4c81;
+  --hover-blue: #0a355c;
+  --accent-cyan: #00d2fc;
+  --text-dark: #2c3e50;
+
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--dark-bg);
+  background-color: var(--light-bg);
+}
+
+/* Custom Navbar Styling to override default Bootstrap */
+.navbar {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.05);
+}
+
+.nav-item .nav-link {
+  font-weight: 600;
+  color: var(--dark-bg) !important;
+}
+
+/* data-bs-link and data-bs-target in body tag's attribute to locate the nav-item */
+.nav-item .nav-link:hover,
+.nav-link.active {
+  color: var(--primary-color) !important;
+  border-bottom: 0.1rem solid var(--accent-cyan);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand,
+.btn {
+  font-family: var(--font-heading);
+}
+
+.btn-primary-custom {
+  background-color: var(--hover-blue);
+  color: var(--accent-cyan);
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-primary-custom:hover {
+  background-color: var(--accent-cyan);
+  color: var(--bg-deep-navy);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px -10px var(--accent-cyan);
+}
+
+/* HERO SECTION STYLES */
+.hero-section {
+  padding: 80px 0;
+  /* Uses your Blue/Trust palette variables */
+  background: linear-gradient(to right, rgba(15, 76, 129, 0.05), #ffffff);
+  overflow: hidden; /* Prevents scrollbars if animations move too far */
+}
+
+.hero-name {
+  color: var(--primary-blue) !important;
+  font-weight: 800; /* Extra Bold for impact */
+  letter-spacing: -1px; /* Modern tight spacing */
+  /* Adds a tiny shadow to make it pop off the white background */
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* 1. CONTAINER */
+.animation-wrapper {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  overflow: hidden; /* Ensures text doesn't spill out */
+}
+
+.static-text {
+  color: var(--text-dark);
+  white-space: nowrap;
+  z-index: 2; /* Keeps "I am a" on top */
+}
+
+/* 2. THE STACK: Holds the words on top of each other */
+.dynamic-words {
+  display: grid;
+  text-align: left;
+  height: 1.5em;
+  position: relative;
+}
+
+/* 3. THE ANIMATION LOGIC */
+.dynamic-words span {
+  grid-area: 1 / 1; /* Stacks words in the same spot */
+  opacity: 0; /* Invisible by default */
+  color: var(--primary-blue);
+
+  /* Total Loop = 12 seconds (4 seconds per word).
+       Infinite loop.
+       Delay = index * 4 seconds.
+    */
+  animation: smoothFade 12s infinite;
+  animation-delay: calc(var(--i) * 4s);
+}
+
+/* 4. SMOOTH KEYFRAMES */
+@keyframes smoothFade {
+  0% {
+    opacity: 0;
+    transform: translateY(5px); /* Starts slightly below */
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0); /* Floats up to center */
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(0); /* Stays readable */
+  }
+  40% {
+    opacity: 0;
+    transform: translateY(-5px); /* Floats up and fades out */
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+/* 2. IMAGE BOUNCE ANIMATION (Right Side) */
+.hero-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-img {
+  width: 350px;
+  height: 350px;
+  object-fit: initial;
+  border-radius: 50%;
+  /* border: 0.1rem solid var(--text-primary-blue); */
+  box-shadow: 0 0 1.5rem var(--text-primary-blue);
+
+  /* The Floating Animation */
+  animation: float 4s ease-in-out infinite;
+}
+
+.hero-img:hover {
+  /* border: 0.1rem solid rgb(5, 181, 250); */
+  box-shadow: 0 0 1.5rem var(--primary-blue);
+}
+
+/* Float Animation Keyframes */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(0.8rem);
+  } /* Moves up 20px */
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* 3. TECH ICONS STYLING */
+.tech-icons i {
+  font-size: 2rem; /* Big icons */
+  margin-right: 15px;
+  color: #6c757d; /* Grey by default */
+  transition:
+    transform 0.2s,
+    color 0.2s;
+}
+
+.tech-icons i:hover {
+  transform: translateY(-5px); /* Jumps up on hover */
+  color: var(--primary-blue); /* Turns blue on hover */
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 991px) {
+  .hero-section {
+    text-align: center;
+  } /* Center everything on phone */
+  .animation-wrapper {
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  .dynamic-text li {
+    font-size: 1.5rem;
+  }
+  .hero-img {
+    width: 280px;
+    height: 280px;
+    margin-top: 40px;
+  }
+}
+
+/* ================= ABOUT SECTION CSS ================= */
+
+/* 1. Layout & Positioning */
+.about-section {
+  min-height: 100vh; /* Takes full screen height */
+  display: flex; /* Enables Flexbox */
+  align-items: center; /* Vertically centers content */
+  background-color: white;
+  /* scroll-margin-top: 50px; Prevents Navbar overlap */
+  padding: 20px 0; /* Small padding to keep it compact */
+}
+
+/* 2. Left Side Text */
+.about-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #6c757d; /* Muted text color */
+}
+
+.about-text p {
+  text-align: justify;
+  margin-bottom: 0.8rem;
+}
+
+/* 3. Right Side Card */
+.about-card {
+  border: none;
+  background-color: rgba(248, 249, 250, 0.5); /* Light transparent bg */
+  height: 100%;
+}
+
+/* 4. Tab Scroll Area (Crucial for One-Page Fit) */
+.tab-scroll-area {
+  height: 350px; /* Fixed height */
+  overflow-y: auto; /* Adds scrollbar if list is too long */
+}
+
+/* 5. Tab Navigation Styling */
+.nav-tabs .nav-link {
+  color: var(--text-dark);
+  border: none;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--primary-blue);
+  background-color: rgba(15, 76, 129, 0.05);
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--primary-blue);
+  background-color: transparent;
+  border-bottom: 3px solid var(--primary-blue);
+}
+
+/* 6. Certification & Edu Item Hover */
+.cert-item,
+.pub-box {
+  background-color: white;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cert-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-blue) !important;
+}
+
+/* Scrollbar beautification (Optional - works in Chrome/Edge) */
+.tab-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+.tab-scroll-area::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+/* publications effect */
+.pub-item {
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pub-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* ================= SKILLS SECTION STYLES ================= */
+
+.skills-section {
+  padding: 60px 0; /* Tighter vertical spacing */
+  background-color: #f8f9fa;
+  /* scroll-margin-top: 70px; */
+}
+
+/* CARD CONTAINER */
+.skill-card {
+  background: white;
+  padding: 1.25rem; /* Compact padding inside card */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+  height: 100%; /* Keeps cards uniform height */
+}
+
+.skill-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-blue);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* CARD HEADER (Icon + Title) */
+.card-header-compact {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem; /* Small gap between header and tags */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03); /* Subtle separator line */
+  padding-bottom: 0.5rem;
+}
+
+.card-header-compact i {
+  font-size: 1.2rem; /* Smaller Icon */
+  margin-right: 0.5rem;
+}
+
+.skill-title {
+  font-size: 1rem; /* Compact Title */
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-dark);
+}
+
+/* TAG CONTAINER */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to stack neatly */
+  gap: 0.5rem; /* Small gap between badges */
+}
+
+/* BADGE STYLING */
+.skill-badge {
+  display: inline-block;
+  padding: 4px 10px; /* Small, sleek padding */
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #666;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 4px; /* Slightly squared corners look more technical */
+  cursor: default;
+}
+
+/* HIGHLIGHT STYLING */
+.skill-badge.skill-highlight {
+  background-color: rgba(15, 76, 129, 0.05);
+  color: var(--primary-blue);
+  border-color: rgba(15, 76, 129, 0.15);
+  font-weight: 600;
+}
+
+.skill-badge:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+}
+
+/* ================= EXPERIENCE SECTION CSS ================= */
+
+/* Section Spacing (Consistent with Skills) */
+.section-padding {
+  padding: 80px 0;
+  /* scroll-margin-top: 70px; */
+}
+
+/* Card Styling */
+.experience-card {
+  background-color: #fff;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.experience-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(15, 76, 129, 0.3) !important; /* Your Blue */
+}
+
+/* Vertical Divider (Desktop Only) */
+@media (min-width: 768px) {
+  .border-end-md {
+    border-right: 1px solid #e9ecef;
+  }
+}
+
+/* List Styling */
+.experience-list {
+  list-style-type: none; /* Remove default dots */
+  padding-left: 0;
+}
+
+.experience-list li {
+  position: relative;
+  padding-left: 1.2rem; /* Space for the arrow */
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Custom Arrow Bullet */
+.experience-list li::before {
+  content: "➤";
+  position: absolute;
+  left: 0;
+  color: var(--primary-blue);
+  font-size: 0.7rem;
+  top: 6px;
+}
+
+/* Tech Tag Styling */
+.tech-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  background-color: #f8f9fa;
+  color: #555;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* ================= MOBILE RESPONSIVE FIXES ================= */
+@media (max-width: 768px) {
+  /* 1. Reduce vertical padding on mobile so it looks tight */
+  .skills-section,
+  .section-padding {
+    padding-top: 40px !important; /* Reduced from 80px to 40px */
+    padding-bottom: 40px !important;
+    scroll-margin-top: 60px; /* Matches mobile navbar height */
+  }
+
+  /* 2. Optional: Reduce font size of section titles on mobile */
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* ================= FINAL PROJECT CSS (Minimal Spacing) ================= */
+#projects {
+  /* scroll-margin-top: 70px; */
+}
+
+.section-padding-compact {
+  padding-top: 40px; /* Minimized top space */
+  padding-bottom: 40px;
+}
+
+/* Fix for Hover Cut-off */
+.carousel-inner {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Cards */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--primary-blue) !important;
+}
+
+/* Images */
+.project-img-wrapper {
+  height: 160px;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+}
+.project-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.project-card:hover .project-img-wrapper img {
+  transform: scale(1.05);
+}
+
+/* Content */
+.card-body-custom {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.tech-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  background-color: #f8f9fa;
+  color: #555;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Buttons */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+  opacity: 1;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: var(--primary-blue);
+  background-size: 50%, 50%;
+  border-radius: 50%;
+  padding: 1.2rem;
+}
+@media (max-width: 768px) {
+  .carousel-control-prev {
+    left: -15px;
+  }
+  .carousel-control-next {
+    right: -15px;
+  }
+}
+
+/* ================= PROFESSIONAL NAVBAR OFFSET FIX ================= */
+
+/* 1. Reset standard padding for these specific sections */
+.about-section,
+.skills-section,
+.section-padding,
+.section-padding-compact {
+  padding-top: 100px !important;
+  padding-bottom: 60px !important;
+}
+
+/* 2. Specific Tweaks for "About" to keep it compact */
+.about-section {
+  padding-bottom: 20px !important; /* About content is long, so we need less bottom space */
+}
+
+/* 3. Specific Tweaks for "Skills" (Grey Background) */
+.skills-section {
+  padding-bottom: 40px !important; /* Balances the visual weight */
+}
+
+/* 4. Specific Tweaks for "Projects" (Compact) */
+.section-padding-compact {
+  padding-bottom: 40px !important;
+}
+
+/* 5. MOBILE ADJUSTMENTS */
+@media (max-width: 991px) {
+  /* On mobile, the navbar is smaller, so we need less top padding */
+  .about-section,
+  .skills-section,
+  .section-padding,
+  .section-padding-compact {
+    padding-top: 70px !important; /* Safe zone for Mobile Navbar */
+    padding-bottom: 40px !important;
+  }
+}
+
+/* ================= CONTACT & FOOTER STYLING ================= */
+
+.contact-section {
+  background-color: #0f172a !important; /* Deep Navy */
+
+  /* ATTRACTIVE SPACING FIX */
+  /* 60px is the "Goldilocks" zone - not too tight, not too big. */
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
+}
+
+/* Eyebrow Label Styling */
+.ls-2 {
+  letter-spacing: 2px;
+  font-size: 0.85rem; /* Small and subtle */
+  opacity: 0.9;
+}
+
+/* Footer Styling */
+.site-footer {
+  background-color: #000000;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.8rem;
+}
+
+/* Button & Icon Polish */
+.btn-outline-light:hover {
+  color: #0f172a;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.social-icon-link {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.social-icon-link:hover {
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+/* ================= THEME TOGGLE BUTTON STYLING ================= */
+#theme-toggle {
+  background-color: transparent;
+  border: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+#theme-toggle:hover {
+  color: var(--primary-color, #6366f1) !important;
+  transform: rotate(15deg);
+}
+
+#theme-toggle:focus-visible {
+  outline: 2px solid var(--primary-color); /* Shows a ring when using Keyboard Tab */
+  border-radius: 50%; /* Makes the ring circular */
+  outline-offset: 2px; /* Adds a tiny gap so it looks nice */
+}
+
+/* Specific color for the Sun icon when Dark Mode is active */
+body.dark-mode #theme-toggle {
+  color: #fbbf24; /* Sun Yellow */
+}
+
+/* ================= DARK MODE COLOR LOGIC (INTERACTIVE FIXED) ================= */
+
+/* 1. Base Variables Swap */
+body.dark-mode {
+  --light-bg: #0f172a;
+  --dark-bg: #f8fafc;
+
+  background-color: #0f172a !important;
+  color: #cbd5e1 !important;
+}
+
+/* 2. Hero Section Fixes */
+body.dark-mode .hero-section {
+  background: #0f172a !important;
+}
+body.dark-mode .hero-name {
+  color: #818cf8 !important;
+  text-shadow: none !important;
+}
+body.dark-mode .static-text {
+  color: #cbd5e1 !important;
+}
+body.dark-mode .hero-section .lead {
+  color: #cbd5e1 !important;
+  opacity: 1 !important;
+}
+
+/* 3. Navbar Fixes */
+body.dark-mode .navbar {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+body.dark-mode .navbar-brand {
+  color: #f8fafc !important;
+}
+body.dark-mode .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+body.dark-mode .navbar-toggler-icon {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+body.dark-mode .nav-link {
+  color: #cbd5e1 !important;
+}
+body.dark-mode .nav-link:hover,
+body.dark-mode .nav-link.active {
+  color: #818cf8 !important;
+}
+
+/* 4. Global Text & Headings */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5 {
+  color: #f8fafc !important;
+}
+body.dark-mode h6,
+body.dark-mode .h6,
+body.dark-mode .fw-bold.text-dark {
+  color: #e2e8f0 !important;
+}
+body.dark-mode strong {
+  color: #f1f5f9 !important;
+}
+body.dark-mode .text-muted,
+body.dark-mode .text-secondary {
+  color: #94a3b8 !important;
+}
+
+/* 5. Section Backgrounds */
+body.dark-mode .bg-light,
+body.dark-mode .bg-white,
+body.dark-mode .about-section,
+body.dark-mode .skills-section,
+body.dark-mode .section-padding,
+body.dark-mode .section-padding-compact {
+  background-color: #0f172a !important;
+}
+
+/* 6. Card Components (Base State) */
+body.dark-mode .card,
+body.dark-mode .project-card,
+body.dark-mode .experience-card,
+body.dark-mode .skill-card,
+body.dark-mode .pub-item,
+body.dark-mode .cert-item {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 7. Card Hover Effects (Dark Theme Version) */
+body.dark-mode .project-card:hover,
+body.dark-mode .experience-card:hover,
+body.dark-mode .skill-card:hover,
+body.dark-mode .pub-item:hover,
+body.dark-mode .cert-item:hover {
+  transform: translateY(-5px);
+  background-color: #263345 !important;
+  border-color: #6366f1 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 8. Fix Invisible GitHub Button */
+body.dark-mode .btn-outline-dark {
+  color: #f8fafc !important;
+  border-color: #f8fafc !important;
+}
+body.dark-mode .btn-outline-dark:hover {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* 9. TABS HOVER FIX (About Section) */
+body.dark-mode .nav-tabs .nav-link {
+  color: #94a3b8 !important;
+}
+/* Active State */
+body.dark-mode .nav-tabs .nav-link.active {
+  color: #818cf8 !important;
+  background-color: transparent !important;
+  border-bottom-color: #818cf8 !important;
+}
+/* HOVER STATE (New Fix) */
+body.dark-mode .nav-tabs .nav-link:hover {
+  color: #f8fafc !important; /* Turn white */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ) !important; /* Slight background glow */
+  border-color: transparent transparent #6366f1 transparent !important; /* Purple bottom border hint */
+}
+body.dark-mode .tab-scroll-area {
+  color: #cbd5e1 !important;
+}
+
+/* 10. SKILLS BADGE HOVER FIX */
+body.dark-mode .skill-badge,
+body.dark-mode .tech-tag {
+  background-color: #0f172a !important;
+  color: #cbd5e1 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.2s ease; /* Ensure smooth animation */
+}
+
+/* The Highlighted Skills */
+body.dark-mode .skill-badge.skill-highlight {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #a5b4fc !important;
+  border-color: #6366f1 !important;
+}
+
+/* HOVER STATE (New Fix) */
+body.dark-mode .skill-badge:hover,
+body.dark-mode .tech-tag:hover {
+  transform: translateY(-3px); /* Make it jump */
+  border-color: #818cf8 !important; /* Glow border */
+  color: #f8fafc !important; /* Turn text white */
+  background-color: #1e293b !important; /* Slightly lighter bg */
+  cursor: default;
+}
+
+/* ================= SCROLL TO TOP BUTTON (GLASS STYLE) ================= */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  /* Glassmorphism / Transparency Effect */
+  background-color: rgba(
+    99,
+    102,
+    241,
+    0.7
+  );
+  backdrop-filter: blur(4px); /* The "Frosted" look */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  /* Shape & Positioning */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  /* Animation State (Hidden) */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+#scrollTopBtn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#scrollTopBtn:hover {
+  background-color: var(--primary-color); 
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+}
+
+/* ================= DARK MODE ADJUSTMENT ================= */
+body.dark-mode #scrollTopBtn {
+  background-color: rgba(255, 255, 255, 0.1); /* White transparent glass */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--primary-color); 
+}
+
+body.dark-mode #scrollTopBtn:hover {
+  background-color: var(--primary-color); 
+  color: white; 
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); 
+}
