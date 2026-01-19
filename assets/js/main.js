@@ -1,23 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
-  // PAPER LINKS (Scroll & Switch Tab)
+  // PAPER LINKS (Smart Scroll & Switch)
   // ==========================================
   document.querySelectorAll('[id^="trigger-paper-link"]').forEach((button) => {
     button.addEventListener("click", function (e) {
       e.preventDefault();
 
-      // A. Scroll to About Section
-      const aboutSection = document.getElementById("about");
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: "smooth" });
-      }
+      // Get the specific target ID (e.g., "#pub-1") from the link's href
+      const targetId = this.getAttribute("href");
 
-      // B. Open Publications Tab
+      // Open the Publications Tab
       const pubTabButton = document.getElementById("pub-tab");
       if (pubTabButton) {
         const tab = bootstrap.Tab.getOrCreateInstance(pubTabButton);
         tab.show();
       }
+
+      // Scroll Logic (Wrapped in setTimeout)
+      // We wait 350ms for the tab to finish opening so the browser can see the element
+      setTimeout(() => {
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+          // MOBILE OFFSET: 100px ensures the sticky header doesn't hide the title
+          const headerOffset = 100;
+
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.scrollY - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          // Highlight Effect
+          // We use 'setProperty' with 'important' to override Bootstrap's bg-white
+          targetElement.style.transition = "background-color 0.5s ease";
+          targetElement.style.setProperty(
+            "background-color",
+            "#ddf5fa",
+            "important",
+          );
+
+          // Remove the highlight after 2 seconds
+          setTimeout(() => {
+            targetElement.style.backgroundColor = "";
+          }, 1300);
+        }
+      }, 350);
     });
   });
 
