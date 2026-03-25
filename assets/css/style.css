@@ -152,13 +152,13 @@ h6,
 }
 
 .hero-img {
-  width: 350px;
-  height: 350px;
-  object-fit: initial;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
   border-radius: 50%;
   /* border: 0.1rem solid var(--text-primary-blue); */
   box-shadow: 0 0 1.5rem var(--text-primary-blue);
-
+  background-color: var(--accent-cyan);
   /* The Floating Animation */
   animation: float 4s ease-in-out infinite;
 }
