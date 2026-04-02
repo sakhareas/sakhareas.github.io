@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://sakhareas.github.io/sitemap.xml
