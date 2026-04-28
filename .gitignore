@@ -1,0 +1,13 @@
+# OS generated files (Windows & Mac)
+Thumbs.db
+Desktop.ini
+.DS_Store
+ehthumbs.db
+.DS_Store?
+._*
+
+# Editor directories and files
+.vscode/
+
+# Node modules
+node_modules/
