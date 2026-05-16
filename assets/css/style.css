@@ -470,9 +470,9 @@ h6,
 }
 
 /* ================= FINAL PROJECT CSS (Minimal Spacing) ================= */
-#projects {
-  /* scroll-margin-top: 70px; */
-}
+/* #projects {
+  scroll-margin-top: 70px; 
+} */
 
 .section-padding-compact {
   padding-top: 40px; /* Minimized top space */
